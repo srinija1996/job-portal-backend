@@ -1,11 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const userRouter = require("./routes/users");
+const userRouter = require("./routes/user");
+const candidateRouter = require("./routes/candidate");
+const recruiterRouter = require("./routes/recruiter");
+const jobRouter = require("./routes/jobs");
 
 app.use(express.json());
 
 app.use("/users", userRouter);
+app.use("/candidate", candidateRouter);
+app.use("/recruiter", recruiterRouter);
+app.use("/jobs", jobRouter);
 
 const initializeDBAndServer = () => {
   app.listen(3000, () => console.log("connected to 3000"));

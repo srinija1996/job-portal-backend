@@ -31,14 +31,13 @@ route.post("/add-user", async (req, res) => {
   }
 });
 route.put("/update-user/:id", async (req, res) => {
-    try{
-        const {id}=req.params
-        const user= await User.findOneAndUpdate({_id:id},{$set:req.body})
-      res.send('User updated successfully')
-    }
-    catch(err){
-        res.status(401).send({ message: err.message });
-    }
+  try {
+    const { id } = req.params;
+    const user = await User.findOneAndUpdate({ _id: id }, { $set: req.body });
+    res.send("User updated successfully");
+  } catch (err) {
+    res.status(401).send({ message: err.message });
+  }
 });
 route.delete("/del-user/:id", async (req, res) => {
   try {
