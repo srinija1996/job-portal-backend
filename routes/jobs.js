@@ -54,18 +54,22 @@ route.get("/get-jobs", async (req, res) => {
       company: { $in: obj.company.split(",") },
       skills: { $in: obj.skills.split(",") },
       location: { $in: obj?.location?.split(",") },
+      $or: [
+        {
+          minExperience: {
+            $gte: obj.minExperience,
+            $lte: obj.maxExperience,
+          },
+        },
+        {
+          maxExperience: {
+            $gte: obj.minExperience,
+            $lte: obj.maxExperience,
+          },
+        },
+      ],
     });
-    const filteredJobs = jobs.filter((job) => {
-      if (
-        (obj.minExperience >= job.minExperience &&
-          obj.minExperience <= job.maxExperience) ||
-        (obj.maxExperience >= job.minExperience &&
-          obj.maxExperience <= job.maxExperience)
-      ) {
-        return job;
-      }
-    });
-    res.send(filteredJobs);
+    res.send(jobs);
   } catch (err) {
     res.status(401).send(err.message);
   }
