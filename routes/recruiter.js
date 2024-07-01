@@ -18,9 +18,12 @@ route.post("/register", async (req, res) => {
         password: await bcrypt.hash(password, salt),
       });
       const newRecruiter = await recruiter.save();
-      res.send(newRecruiter.id);
+      res.send({
+        message: "Recruiter account created successfully",
+        id: newRecruiter.id,
+      });
     } else {
-      res.status(201).send("Company already existed");
+      res.status(201).send({ message: "Company already existed" });
     }
   } catch (err) {
     res.status(401).send(err.message);

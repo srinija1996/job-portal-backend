@@ -23,9 +23,9 @@ route.post("/register", async (req, res) => {
         experience,
       });
       const newCandidate = await candidate.save();
-      res.send(newCandidate.id);
+      res.send({ message: "Registered successfully", id: newCandidate.id });
     } else {
-      res.status(201).send("User already existed");
+      res.status(201).send({ message: "User already existed" });
     }
   } catch (err) {
     res.status(401).send(err.message);

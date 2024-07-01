@@ -1,11 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 const userRouter = require("./routes/user");
 const candidateRouter = require("./routes/candidate");
 const recruiterRouter = require("./routes/recruiter");
 const jobRouter = require("./routes/jobs");
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+};
+app.use(cors());
 app.use(express.json());
 
 app.use("/users", userRouter);
@@ -14,7 +20,7 @@ app.use("/recruiter", recruiterRouter);
 app.use("/jobs", jobRouter);
 
 const initializeDBAndServer = () => {
-  app.listen(3000, () => console.log("connected to 3000"));
+  app.listen(4000, () => console.log("connected to 3000"));
   mongoose.connect(
     "mongodb+srv://srinijapatnala:Srinija12345@job-portal.0hw8oo8.mongodb.net/job-portal?retryWrites=true&w=majority&appName=job-portal",
     { useNewUrlParser: true, useUnifiedTopology: true }
